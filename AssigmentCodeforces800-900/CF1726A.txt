@@ -2,6 +2,10 @@ Codeforces 1726A
 
 Problem link: https://codeforces.com/problemset/problem/1726/A
 
+Solution link: https://codeforces.com/problemset/submission/1726/362252454
+
+
+
 -> We are given an array of integers of size n.
 
 -> We can perform the following operation one time only:
