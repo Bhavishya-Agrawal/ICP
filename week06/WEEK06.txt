@@ -1,0 +1,57 @@
+Problem: Leetcode 1325
+
+Approach: 
+We are supposed to remove all leafnodes who's value equals to target. But the problem is that removing just the initial leafnodes will create new ones that may also have values equals to target.
+So we apply bottom up approach:
+1- We find leaf nodes with value equals to target and return null for it.
+2- Step one enables us to then check if above node has become leaf, i.e. left==null and right==null, and return null for it if it is.
+3- We keep up this approach until stop condition is reached, i.e. reached root.
+
+Solution: https://leetcode.com/problems/delete-leaves-with-a-given-value/submissions/1921758183
+
+Solution code:
+class Solution {
+    public TreeNode removeLeafNodes(TreeNode root, int target) {
+        if (root == null) return null;
+
+        root.left = removeLeafNodes(root.left, target);
+        root.right = removeLeafNodes(root.right, target);
+
+        if (root.left == null && root.right == null && root.val == target) {
+            return null;
+        }
+
+        return root;
+    }
+}
+
+
+
+Problem: Leetcode 2673
+
+Approach:
+We are given a perfect binary tree and we are to make all path cost equal, i.e. cost of path from root to any leaf be equal.
+We do it as such:
+1- The concept is similar to calculating height. We first create a global variable ans to store increments needed during each recursion call.
+2- Bottom up, we subtract left subtree pathsum with right subtree pathsum to get minIncrements and add it to answer. We return max(left,right), as all paths must me equal to path with max cost.
+3- Recursively, we go bottom up, adding minIncrements needed at each node, starting from leafs all the way to root, and then return ans.
+
+Solution: https://leetcode.com/problems/make-costs-of-paths-equal-in-a-binary-tree/submissions/1925136068
+
+Solution code:
+class Solution {
+    int ans=0;
+    public int minIncrements(int n, int[] cost) {
+        sol(cost,1);
+        return ans;
+    }
+    public int sol(int[] cost,int idx){
+        if(idx>cost.length){
+            return 0;
+        }
+        int left=sol(cost,idx*2);
+        int right=sol(cost,idx*2+1);
+        ans+=Math.abs(left-right);
+        return Math.max(left,right)+cost[idx-1];
+    }
+}
